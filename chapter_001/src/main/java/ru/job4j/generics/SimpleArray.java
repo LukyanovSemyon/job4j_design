@@ -4,22 +4,17 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
-    Object[] array;
-    int count = 0;
-    int value = 0;
+    private final Object[] array;
+    private int count = 0;
+    private int value = 0;
 
     public SimpleArray(Object[] array) {
         this.array = array;
     }
 
     public void add(T model) {
-        for (int index = 0; index < array.length; index++) {
-            if (array[index] == null) {
-                array[index] = model;
-                count++;
-                break;
-            }
-        }
+        array[count] = model;
+        count++;
     }
 
     public void set(int index, T model) {
@@ -41,5 +36,17 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new SimpleArrayIterator<>(this);
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

@@ -5,14 +5,16 @@ import java.util.NoSuchElementException;
 
 public class SimpleArrayIterator<T> implements Iterator<T> {
     private final SimpleArray<T> arr;
+    private int index;
 
     public SimpleArrayIterator(SimpleArray<T> arr) {
         this.arr = arr;
+        index = arr.getValue();
     }
 
     @Override
     public boolean hasNext() {
-        return arr.value < arr.count;
+        return arr.getValue() < arr.getCount();
     }
 
     @Override
@@ -20,6 +22,8 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return arr.get(arr.value++);
+        T el = arr.get(index++);
+        arr.setValue(index);
+        return el;
     }
 }
