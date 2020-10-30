@@ -6,12 +6,10 @@ import java.util.List;
 public final class MemStore<T extends Base> implements Store<T> {
 
     private final List<T> mem = new ArrayList<>();
-    int count = 0;
 
     @Override
     public void add(T model) {
         mem.add(model);
-        count++;
     }
 
     @Override
@@ -29,7 +27,6 @@ public final class MemStore<T extends Base> implements Store<T> {
         int index = findIndex(id);
         if (index != -1) {
             mem.remove(index);
-            count--;
             return true;
         }
         return false;
@@ -47,7 +44,7 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     public int findIndex(String id) {
         int index = -1;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < mem.size(); i++) {
             if (mem.get(i).getId().equals(id)) {
                 index = i;
             }
