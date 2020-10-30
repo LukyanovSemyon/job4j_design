@@ -18,6 +18,14 @@ public class ForwardLinkedTest {
         linked.iterator().next();
     }
 
+    @Test
+    public void whenDeleteFirstReturn() {
+        ForwardLinked<Integer> linked = new ForwardLinked<>();
+        linked.add(1);
+        linked.add(2);
+        assertThat(linked.deleteFirst(), is(1));
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void whenDeleteEmptyLinked() {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
