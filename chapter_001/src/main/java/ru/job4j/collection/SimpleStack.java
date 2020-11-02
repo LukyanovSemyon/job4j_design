@@ -10,4 +10,10 @@ public class SimpleStack<T> {
     public void push(T value) {
         linked.add(value);
     }
+
+    @Override
+    public String toString() {
+        return "SimpleStack{"
+                + "linked=" + linked + '}';
+    }
 }

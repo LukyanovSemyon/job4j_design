@@ -52,6 +52,9 @@ public class ForwardLinked<T> implements Iterable<T> {
         Node<T> tail = head;
         Node<T> ccc = head;
         T e;
+        if (tail.next == null) {
+            head = null;
+        }
         while (tail.next != null) {
             ccc = tail;
             tail = tail.next;
@@ -83,6 +86,12 @@ public class ForwardLinked<T> implements Iterable<T> {
         };
     }
 
+    @Override
+    public String toString() {
+        return "ForwardLinked{"
+                + "head=" + head + '}';
+    }
+
     private static class Node<T> {
         T value;
         Node<T> next;
@@ -90,6 +99,13 @@ public class ForwardLinked<T> implements Iterable<T> {
         public Node(T value, Node<T> next) {
             this.value = value;
             this.next = next;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" + "value="
+                    + value + ", next="
+                    + next + '}';
         }
     }
 }

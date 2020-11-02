@@ -42,12 +42,15 @@ public class SimpleQueueTest {
         queue.poll();
     }
 
+    @Test
     public void whenPushPushPollAndPush() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();
         queue.push(1);
         queue.push(2);
-        queue.poll();
         queue.push(3);
+        queue.poll();
+        queue.push(4);
+        queue.push(5);
         assertThat(queue.poll(), is(2));
     }
 }
