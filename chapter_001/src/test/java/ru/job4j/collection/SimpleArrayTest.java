@@ -23,8 +23,10 @@ public class SimpleArrayTest {
     public void whenAddThenIt() {
         SimpleArray<String> array = new SimpleArray<>();
         array.add("first");
-        String rsl = array.iterator().next();
-        assertThat(rsl, is("first"));
+        array.add("second");
+        Iterator<String> it = array.iterator();
+        it.next();
+        assertThat(it.next(), is("second"));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -43,7 +45,8 @@ public class SimpleArrayTest {
     @Test(expected = NoSuchElementException.class)
     public void whenGetEmptyFromIt() {
         SimpleArray<String> array = new SimpleArray<>();
-        array.iterator().next();
+        Iterator<String> it = array.iterator();
+        it.next();
     }
 
     @Test(expected = ConcurrentModificationException.class)

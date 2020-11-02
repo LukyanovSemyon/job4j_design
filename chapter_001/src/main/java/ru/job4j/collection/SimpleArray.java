@@ -7,7 +7,6 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     private Object[] container;
     private int count = 0;
-    private int value = 0;
     private int modCount = 0;
 
     public SimpleArray() {
@@ -47,14 +46,6 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public int getCount() {
         return count;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public int getModCount() {

@@ -11,7 +11,6 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
 
     public SimpleArrayIterator(SimpleArray<T> arr) {
         this.arr = arr;
-        index = arr.getValue();
         expectedModCount = arr.getModCount();
     }
 
@@ -20,7 +19,7 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
         if (expectedModCount != arr.getModCount()) {
             throw new ConcurrentModificationException();
         }
-        return arr.getValue() < arr.getCount();
+        return index < arr.getCount();
     }
 
     @Override
@@ -28,8 +27,6 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        T el = arr.get(index++);
-        arr.setValue(index);
-        return el;
+        return arr.get(index++);
     }
 }
