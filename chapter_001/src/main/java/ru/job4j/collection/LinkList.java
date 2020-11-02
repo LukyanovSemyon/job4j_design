@@ -7,7 +7,6 @@ public class LinkList<E> implements Iterable<E> {
     private Node<E> first;
     private Node<E> last;
     private int size = 0;
-    private int value = 0;
     private int modCount = 0;
 
     public static class Node<E> {
@@ -57,14 +56,6 @@ public class LinkList<E> implements Iterable<E> {
 
     public int getSize() {
         return size;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public int getModCount() {

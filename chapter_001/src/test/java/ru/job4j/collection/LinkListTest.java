@@ -29,8 +29,9 @@ public class LinkListTest {
         list.add("2");
         list.add("3");
         list.add("4");
-        String rsl = list.iterator().next();
-        assertThat(rsl, is("1"));
+        Iterator<String> it = list.iterator();
+        it.next();
+        assertThat(it.next(), is("2"));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -49,7 +50,8 @@ public class LinkListTest {
     @Test(expected = NoSuchElementException.class)
     public void whenGetEmptyFromIt() {
         LinkList<String> list = new LinkList<>();
-        list.iterator().next();
+        Iterator<String> it = list.iterator();
+        it.next();
     }
 
     @Test(expected = ConcurrentModificationException.class)

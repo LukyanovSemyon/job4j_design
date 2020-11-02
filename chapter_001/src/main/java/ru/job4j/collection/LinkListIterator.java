@@ -11,7 +11,6 @@ public class LinkListIterator<E> implements Iterator<E> {
 
     public LinkListIterator(LinkList<E> list) {
         this.list = list;
-        this.index = list.getValue();
         this.expectedModCount = list.getModCount();
     }
 
@@ -20,7 +19,7 @@ public class LinkListIterator<E> implements Iterator<E> {
         if (expectedModCount != list.getModCount()) {
             throw new ConcurrentModificationException();
         }
-        return list.getValue() < list.getSize();
+        return index < list.getSize();
     }
 
     @Override
@@ -28,8 +27,6 @@ public class LinkListIterator<E> implements Iterator<E> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        E el = list.get(index++);
-        list.setValue(index);
-        return el;
+        return list.get(index++);
     }
 }
