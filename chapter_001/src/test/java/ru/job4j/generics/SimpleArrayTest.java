@@ -2,6 +2,7 @@ package ru.job4j.generics;
 
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -58,31 +59,35 @@ public class SimpleArrayTest {
         array.add("first");
         array.add("second");
         array.add("third");
-        assertThat(array.iterator().next(), is("first"));
-        assertThat(array.iterator().next(), is("second"));
-        assertThat(array.iterator().next(), is("third"));
+        Iterator<String> it = array.iterator();
+        assertThat(it.next(), is("first"));
+        assertThat(it.next(), is("second"));
+        assertThat(it.next(), is("third"));
     }
 
     @Test
     public void hasNextTrue() {
         SimpleArray<String> array = new SimpleArray<>(new Object[10]);
-        assertThat(array.iterator().hasNext(), is(false));
+        Iterator<String> it = array.iterator();
+        assertThat(it.hasNext(), is(false));
     }
 
     @Test
     public void hasNextFalse() {
         SimpleArray<String> array = new SimpleArray<>(new Object[10]);
         array.add("first");
-        assertThat(array.iterator().hasNext(), is(true));
-        array.iterator().next();
-        assertThat(array.iterator().hasNext(), is(false));
+        Iterator<String> it = array.iterator();
+        assertThat(it.hasNext(), is(true));
+        it.next();
+        assertThat(it.hasNext(), is(false));
     }
 
     @Test(expected = NoSuchElementException.class)
     public void noSuchElementException() {
         SimpleArray<String> array = new SimpleArray<>(new Object[10]);
         array.add("first");
-        array.iterator().next();
-        array.iterator().next();
+        Iterator<String> it = array.iterator();
+        it.next();
+        it.next();
     }
 }

@@ -9,7 +9,6 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
 
     public SimpleArrayIterator(SimpleArray<T> arr) {
         this.arr = arr;
-        index = 0;
     }
 
     @Override
