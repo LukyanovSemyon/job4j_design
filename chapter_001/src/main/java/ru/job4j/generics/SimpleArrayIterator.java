@@ -9,12 +9,12 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
 
     public SimpleArrayIterator(SimpleArray<T> arr) {
         this.arr = arr;
-        index = arr.getValue();
+        index = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return arr.getValue() < arr.getCount();
+        return index < arr.getCount();
     }
 
     @Override
@@ -22,8 +22,6 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        T el = arr.get(index++);
-        arr.setValue(index);
-        return el;
+        return arr.get(index++);
     }
 }

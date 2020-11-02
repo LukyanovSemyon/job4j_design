@@ -6,7 +6,6 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     private final Object[] array;
     private int count = 0;
-    private int value = 0;
 
     public SimpleArray(Object[] array) {
         this.array = array;
@@ -40,13 +39,5 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public int getCount() {
         return count;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 }
