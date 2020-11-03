@@ -1,6 +1,8 @@
 package ru.job4j.collection;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class LinkList<E> implements Iterable<E> {
@@ -51,14 +53,27 @@ public class LinkList<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new LinkListIterator<>(this);
-    }
+        return new Iterator<>() {
+            Node<E> list = first;
+            private final int expectedModCount = modCount;
 
-    public int getSize() {
-        return size;
-    }
+            @Override
+            public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return list != null;
+            }
 
-    public int getModCount() {
-        return modCount;
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                E el = list.item;
+                list = list.next;
+                return el;
+            }
+        };
     }
 }
