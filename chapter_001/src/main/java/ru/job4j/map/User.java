@@ -3,9 +3,9 @@ package ru.job4j.map;
 import java.util.*;
 
 public class User {
-    String name;
-    int children;
-    Calendar birthday;
+    final String name;
+    final int children;
+    final Calendar birthday;
 
     public User(String name, int children, Calendar birthday) {
         this.name = name;
@@ -24,5 +24,24 @@ public class User {
         map.put(user1, user2.getName());
         map.put(user2, user2.getName());
         System.out.println(map);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return children == user.children
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 }
