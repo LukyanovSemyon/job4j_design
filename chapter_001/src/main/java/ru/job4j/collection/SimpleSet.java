@@ -8,7 +8,7 @@ public class SimpleSet<T> implements Iterable<T> {
 
     public boolean add(T model) {
         for (T t : simpleArray) {
-            if (model.equals(t)) {
+            if (Objects.equals(t, model)) {
                 return false;
             }
         }

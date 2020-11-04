@@ -17,6 +17,7 @@ public class SimpleSetTest {
         array.add("first");
         array.add("first");
         array.add("second");
+        array.add(null);
         Iterator<String> it = array.iterator();
         it.next();
         assertThat(it.next(), is("second"));
