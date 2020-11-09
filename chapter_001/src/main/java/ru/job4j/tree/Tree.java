@@ -2,7 +2,7 @@ package ru.job4j.tree;
 
 import java.util.*;
 
-class Tree<E> implements SimpleTree<E> {
+public class Tree<E> implements SimpleTree<E> {
     private final Node<E> root;
 
     Tree(final E root) {
@@ -12,9 +12,11 @@ class Tree<E> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         Optional<Node<E>> el = findBy(parent);
-        Node<E> d = new Node<>(child);
+        if (findBy(child).isPresent()) {
+            return false;
+        }
         if (el.isPresent()) {
-            el.get().children.add(d);
+            el.get().children.add(new Node<>(child));
         }
         return true;
     }

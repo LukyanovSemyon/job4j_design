@@ -21,6 +21,16 @@ public class TreeTest {
     }
 
     @Test
+    public void whenAddFalse() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        assertThat(
+                tree.add(1, 2),
+                is(false)
+        );
+    }
+
+    @Test
     public void when6ElFindNotExitThenOptionEmpty() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
