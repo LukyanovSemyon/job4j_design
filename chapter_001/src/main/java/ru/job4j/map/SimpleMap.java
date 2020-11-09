@@ -1,15 +1,13 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleMap<K, V> implements Iterable<K> {
     private static int count;
     private HashTable<K, V>[] hashTable;
     private final double loadFactor;
     private int size;
+    private int modCount = 0;
 
     public SimpleMap() {
         this.size = 4;
@@ -87,23 +85,28 @@ public class SimpleMap<K, V> implements Iterable<K> {
 //        }
         hashTable[hashKey] = new HashTable<>(key, value);
         count++;
+        modCount++;
         return true;
     }
 
     V get(K key) {
         int hashKey = key.hashCode() % size;
-        if (hashTable[hashKey] == null) {
-            return null;
-        } else {
-            return (V) hashTable[hashKey].getValue();
+        V rsl = null;
+        if (hashTable[hashKey].equals(key)) {
+            rsl = hashTable[hashKey].getValue();
         }
+        return rsl;
     }
 
     boolean delete(K key) {
         int hashKey = key.hashCode() % size;
-        hashTable[hashKey] = null;
-        count--;
-        return true;
+        if (hashTable[hashKey].equals(key)) {
+            hashTable[hashKey] = null;
+            count--;
+            modCount++;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -111,10 +114,14 @@ public class SimpleMap<K, V> implements Iterable<K> {
         return new Iterator<>() {
             int index;
             final HashTable<K, V>[] it = hashTable;
+            private final int expectedModCount = modCount;
 
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 while (index < size - 1 & it[index] == null) {
                     index++;
                 }
