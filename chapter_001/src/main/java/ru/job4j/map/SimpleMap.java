@@ -92,19 +92,23 @@ public class SimpleMap<K, V> implements Iterable<K> {
     V get(K key) {
         int hashKey = key.hashCode() % size;
         V rsl = null;
-        if (hashTable[hashKey].equals(key)) {
-            rsl = hashTable[hashKey].getValue();
+        if (hashTable[hashKey] != null) {
+            if (hashTable[hashKey].getKey().equals(key)) {
+                rsl = hashTable[hashKey].getValue();
+            }
         }
         return rsl;
     }
 
     boolean delete(K key) {
         int hashKey = key.hashCode() % size;
-        if (hashTable[hashKey].equals(key)) {
-            hashTable[hashKey] = null;
-            count--;
-            modCount++;
-            return true;
+        if (hashTable[hashKey] != null) {
+            if (hashTable[hashKey].getKey().equals(key)) {
+                hashTable[hashKey] = null;
+                count--;
+                modCount++;
+                return true;
+            }
         }
         return false;
     }
