@@ -5,19 +5,22 @@ import java.util.*;
 public class Analize {
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info();
-        Set<User> previousNew = new HashSet<>(previous);
-        Set<User> currentNew = new HashSet<>(current);
-        previousNew.removeAll(current);
-        currentNew.removeAll(previous);
-        for (User user : previousNew) {
-            for (User user1 : currentNew) {
-                if (user.getId() == user1.getId()) {
-                    info.changed++;
-                }
+        Map<Integer, String> previousNew = new HashMap();
+        for (User user : previous) {
+            previousNew.put(user.id, user.name);
+        }
+        Map<Integer, String> currentNew = new HashMap();
+        for (User user : current) {
+            currentNew.put(user.id, user.name);
+        }
+        for (int key : previousNew.keySet()) {
+            if (currentNew.containsKey(key) && !currentNew.get(key).contains(previousNew.get(key))) {
+                info.changed++;
+            } else if (!currentNew.containsKey(key)) {
+                info.deleted++;
             }
         }
-        info.deleted = previousNew.size() - info.changed;
-        info.added = currentNew.size() - info.changed;
+        info.added = currentNew.size() - (previousNew.size() - info.deleted);
         return info;
     }
 
