@@ -16,8 +16,9 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             values = read.lines().filter(line -> !line.isEmpty())
-                    .filter(line -> !line.contains("//"))
-                    .collect(Collectors.toMap(line -> line.split("=")[0], line -> line.split("=")[1]));
+                    .filter(line -> !line.contains("#"))
+                    .map(line -> line.split("="))
+                    .collect(Collectors.toMap(line -> line[0], line ->  line[1]));
         } catch (Exception e) {
             e.printStackTrace();
         }
