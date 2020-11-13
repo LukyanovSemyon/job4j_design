@@ -5,8 +5,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Analizy {
-
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         try (BufferedReader read = new BufferedReader(
                  new FileReader(source));
             PrintWriter out = new PrintWriter(
@@ -31,7 +30,6 @@ public class Analizy {
     }
 
     public static void main(String[] args) {
-        Analizy h = new Analizy();
-        h.unavailable("./chapter_002/data/source.txt", "./chapter_002/data/target.csv");
+        unavailable("./chapter_002/data/source.txt", "./chapter_002/data/target.csv");
     }
 }
