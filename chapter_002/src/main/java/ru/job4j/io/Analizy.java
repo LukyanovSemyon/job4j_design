@@ -2,7 +2,6 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Analizy {
     public static void unavailable(String source, String target) {
@@ -11,18 +10,24 @@ public class Analizy {
             PrintWriter out = new PrintWriter(
                  new BufferedOutputStream(
                      new FileOutputStream(target)))) {
-            List<String[]> list = read.lines()
-                 .map(line -> line.split(" "))
-                 .collect(Collectors.toList());
             int i = 0;
-            for (String[] line : list) {
-                if (i % 2 == 0 && (line[0].contains("400") || line[0].contains("500"))) {
-                    out.write(line[1] + ";");
+            List<String> list = new ArrayList<>();
+            String line;
+            String first = null;
+            String second;
+            while ((line = read.readLine()) != null) {
+                if (i % 2 == 0 && (line.contains("400") || line.contains("500"))) {
+                    first = line.split(" ")[1] + ";";
                     i++;
-                } else if (i % 2 != 0 && (line[0].contains("200") || line[0].contains("300"))) {
-                    out.write(line[1] + System.lineSeparator());
+                } else if (i % 2 != 0 && (line.contains("200") || line.contains("300"))) {
+                    second = line.split(" ")[1] + System.lineSeparator();
                     i++;
+                    list.add(first + second);
                 }
+
+            }
+            for (String str : list) {
+                out.write(str);
             }
         } catch (IOException e) {
             e.printStackTrace();
