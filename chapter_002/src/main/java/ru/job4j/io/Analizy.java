@@ -5,13 +5,10 @@ import java.util.*;
 
 public class Analizy {
     public static void unavailable(String source, String target) {
+        List<String> list = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(
-                 new FileReader(source));
-            PrintWriter out = new PrintWriter(
-                 new BufferedOutputStream(
-                     new FileOutputStream(target)))) {
+                 new FileReader(source))) {
             int i = 0;
-            List<String> list = new ArrayList<>();
             String line;
             String first = null;
             String second;
@@ -24,8 +21,13 @@ public class Analizy {
                     i++;
                     list.add(first + second);
                 }
-
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (PrintWriter out = new PrintWriter(
+                new BufferedOutputStream(
+                        new FileOutputStream(target)))) {
             for (String str : list) {
                 out.write(str);
             }
