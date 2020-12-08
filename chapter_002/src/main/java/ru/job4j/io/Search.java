@@ -8,8 +8,15 @@ import java.util.List;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, "js").forEach(System.out::println);
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar search.jar");
+        }
+        if (args.length == 1) {
+            throw new IllegalArgumentException("Sought file extension is null. Usage java -jar search.jar");
+        }
+        Path start = Paths.get(args[0]);
+        String str = args[1];
+        search(start, str).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, String ext) throws IOException {
