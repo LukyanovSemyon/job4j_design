@@ -47,9 +47,11 @@ public class ConsoleChat {
                 case OUT -> log("Чат прекращен");
             }
         }
-        try (BufferedWriter out = new BufferedWriter(
-                new FileWriter(path, Charset.forName("WINDOWS-1251"), true)
-            )) {
+    }
+
+    public void writeDataInFile() {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, Charset.forName("WINDOWS-1251"), true)
+        )) {
             for (String line : log) {
                 out.write(line + System.lineSeparator());
             }
@@ -70,5 +72,6 @@ public class ConsoleChat {
     public static void main(String[] args) {
         ConsoleChat cc = new ConsoleChat("./chapter_002/data/ConsoleChatLog.txt", "./chapter_002/data/BotAnswers.txt");
         cc.run();
+        cc.writeDataInFile();
     }
 }
