@@ -13,9 +13,12 @@ public class ArgsName {
 
     private void parse(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Не введены данные");
         }
         for (String i : args) {
+            if (i.charAt(0) != '-' || !i.contains("=")) {
+                throw new IllegalArgumentException("Данные не удовлетворяют шаблону -key=value");
+            }
             String[] args1 = i.substring(1).split("=");
             values.put(args1[0], args1[1]);
         }
