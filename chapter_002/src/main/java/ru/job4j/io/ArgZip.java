@@ -3,36 +3,29 @@ package ru.job4j.io;
 public class ArgZip {
 
     private final String[] args;
+    private ArgsName value = new ArgsName();
 
     public ArgZip(String[] args) {
         this.args = args;
     }
 
     public boolean valid() {
-        return args.length >= 3;
+        value = ArgsName.of(args);
+        if (value.get("d") == null || value.get("e") == null || value.get("o") == null) {
+            throw new IllegalArgumentException("Не введены данные");
+        }
+        return true;
     }
 
     public String directory() {
-        String dir = ArgsName.of(args).get("d");
-        if (dir == null) {
-            System.out.println("Не указана директория, параметр -d");
-        }
-        return dir;
+        return value.get("d");
     }
 
     public String exclude() {
-        String exclude = ArgsName.of(args).get("e");
-        if (exclude == null) {
-            System.out.println("Не указано расширение исключаемых файлов, параметр -e");
-        }
-        return exclude;
+        return value.get("e");
     }
 
     public String output() {
-        String output = ArgsName.of(args).get("o");
-        if (output == null) {
-            System.out.println("Не указано имя архива, параметр -o");
-        }
-        return output;
+        return value.get("o");
     }
 }

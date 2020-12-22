@@ -41,16 +41,14 @@ public class Zip {
                 new File("./pom.zip")
         );
         ArgZip argZip = new ArgZip(args);
-        List<Path> source;
-        if (!argZip.valid()) {
-            System.out.println("Неверное количество параметров");
-        } else {
-            source = Files.walk(Paths.get(argZip.directory()))
-                    .filter(Files::isRegularFile)
-                    .collect(Collectors.toList());
-            List<Path> exclude = Search.search(Paths.get(argZip.directory()), argZip.exclude());
-            source.removeAll(exclude);
-            new Zip().packFiles(source, new File(argZip.output()));
-        }
+        argZip.valid();
+        List<Path> source = search(Paths.get(argZip.directory()), argZip.exclude());
+        new Zip().packFiles(source, new File(argZip.output()));
+    }
+
+    public static List<Path> search(Path root, String ext) throws IOException {
+        SearchFiles searcher = new SearchFiles(p -> !p.toString().endsWith(ext));
+        Files.walkFileTree(root, searcher);
+        return searcher.getPaths();
     }
 }
