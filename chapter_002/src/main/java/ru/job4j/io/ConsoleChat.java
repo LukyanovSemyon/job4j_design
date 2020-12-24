@@ -22,31 +22,34 @@ public class ConsoleChat {
     }
 
     public void run() {
+        log("Консольный чат, напишите сообщение");
+        String userMessage = "";
+        while (!userMessage.equals(OUT)) {
+            userMessage = readData();
+            switch (userMessage) {
+                case STOP -> {
+                    log("Чат остановлен, для продолжения напишите: продолжить");
+                    while (!userMessage.equals(CONTINUE)) {
+                        userMessage = readData();
+                    }
+                    log(answerBot());
+                }
+                case OUT -> log("Чат прекращен");
+                default -> log(answerBot());
+            }
+        }
+    }
+
+    public String readData() {
         try (BufferedReader in = new BufferedReader(new FileReader(botAnswers, Charset.forName("WINDOWS-1251")))) {
             answers = in.lines().collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log("Консольный чат, напишите сообщение");
         Scanner ing = new Scanner(System.in);
-        String userMessage = "";
-        while (!userMessage.equals(OUT)) {
-            userMessage = ing.nextLine();
-            log.add(userMessage);
-            log(answerBot());
-            switch (userMessage) {
-                case CONTINUE -> System.out.println(answerBot());
-                case STOP -> {
-                    log("Чат остановлен, для продолжения напишите: продолжить");
-                    while (!userMessage.equals(CONTINUE)) {
-                        userMessage = ing.nextLine();
-                        log.add(userMessage);
-                    }
-                    log(answerBot());
-                }
-                case OUT -> log("Чат прекращен");
-            }
-        }
+        String userMessage = ing.nextLine();
+        log.add(userMessage);
+        return userMessage;
     }
 
     public void writeDataInFile() {
