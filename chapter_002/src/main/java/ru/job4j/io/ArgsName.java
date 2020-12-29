@@ -19,8 +19,8 @@ public class ArgsName {
             if (i.charAt(0) != '-' || !i.contains("=")) {
                 throw new IllegalArgumentException("Данные не удовлетворяют шаблону -key=value");
             }
-            String[] args1 = i.substring(1).split("=", 2);
-            if (args1[0].equals("") || args1[1].equals("")) {
+            String[] args1 = i.substring(1).split("=");
+            if (args1.length <= 1) {
                 throw new IllegalArgumentException("Данные не удовлетворяют шаблону -key=value");
             }
             values.put(args1[0], args1[1]);
