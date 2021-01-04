@@ -8,14 +8,10 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        byte a = 1;
-        short b = 2;
-        int c = 3;
-        long d = 4;
-        float e = 5.1f;
-        double f = 6.2;
-        char g = 'g';
-        boolean h = true;
-        LOG.debug("byte a : {}, short b : {}, int c : {}, long d : {}, float e : {}, double f : {}, char g : {}, boolean h : {}", a, b, c, d, e, f, g, h);
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
+        }
     }
 }
