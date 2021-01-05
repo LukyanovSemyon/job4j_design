@@ -1,5 +1,7 @@
 package ru.job4j.serialization.json;
 
+import org.json.JSONPropertyIgnore;
+
 public class Author {
     private final String name;
     private final String sex;
@@ -11,6 +13,22 @@ public class Author {
         this.sex = sex;
         this.language = language;
         this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override

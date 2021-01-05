@@ -1,9 +1,11 @@
 package ru.job4j.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Book {
     private final int printedCopies;
@@ -20,6 +22,22 @@ public class Book {
         this.chapters = chapters;
     }
 
+    public int getPrintedCopies() {
+        return printedCopies;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isPurchasability() {
+        return purchasability;
+    }
+
+    public int[] getChapters() {
+        return chapters;
+    }
+
     @Override
     public String toString() {
         return "Book{"
@@ -32,26 +50,37 @@ public class Book {
     }
 
     public static void main(String[] args) {
-        final Book book = new Book(2000, "Tales", new Author("Smith", "male", "english", 33), true, 1, 2, 3);
 
-        final Gson gson = new GsonBuilder().create();
-        System.out.println(gson.toJson(book));
+        /* JSONObject из json-строки строки */
+        JSONObject jsonAuthor = new JSONObject("{"
+                + "\"name\":\"Jones\","
+                + "\"sex\":\"female\","
+                + "\"language\":\"english\","
+                + "\"age\":33"
+                + "}");
 
-        final String bookJson =
-                "{"
-                        + "\"printedCopies\":300,"
-                        + "\"title\":\"Stories\","
-                        + "\"author\":"
-                        + "{"
-                        + "\"name\":\"Jones\","
-                        + "\"sex\":\"female\","
-                        + "\"language\":\"english\","
-                        + "\"age\":33"
-                        + "},"
-                        + "\"purchasability\":false,"
-                        + "\"chapters\":[1, 2, 3, 4]"
-                        + "}";
-        final Book bookMod = gson.fromJson(bookJson, Book.class);
-        System.out.println(bookMod);
+        /* JSONArray из ArrayList */
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        JSONArray jsonChapters = new JSONArray(list);
+
+        /* JSONObject напрямую методом put */
+        final Book book = new Book(2000, "Tales",
+                new Author("Smith", "male", "english", 33),
+                true, 1, 2, 3);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("printedCopies", book.getPrintedCopies());
+        jsonObject.put("title", book.getTitle());
+        jsonObject.put("author", jsonAuthor);
+        jsonObject.put("purchasability", book.isPurchasability());
+        jsonObject.put("chapters", book.getChapters());
+
+        /* Выведем результат в консоль */
+        System.out.println(jsonObject.toString());
+
+        /* Преобразуем объект book в json-строку */
+        System.out.println(new JSONObject(book).toString());
     }
 }
