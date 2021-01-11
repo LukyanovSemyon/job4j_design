@@ -21,7 +21,7 @@ public class Find {
                         new FileOutputStream(file)
                 ))) {
             for (Path line : log) {
-                out.write(line + System.lineSeparator());
+                out.println(line);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,14 +29,7 @@ public class Find {
     }
 
     public static List<Path> search(Path root, String ext, String howToSearch) throws IOException {
-        FindFiles searcher = null;
-        if (howToSearch.equals("-m")) {
-            PathMatcher pathMatcher = FileSystems.getDefault().getPathMatcher("glob:**" + ext);
-            searcher = new FindFiles(pathMatcher::matches);
-        } else if (howToSearch.equals("-f")) {
-            searcher = new FindFiles(p -> p.getFileName().toString().equals(ext));
-        }
-        assert searcher != null;
+        FindFiles searcher = Searcher.searcher(ext, howToSearch);
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
     }
