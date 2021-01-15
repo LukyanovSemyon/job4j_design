@@ -23,7 +23,7 @@ insert into type(name) values ('МОРОЖЕННОЕ');
 
 select * from product join type t on product.type_id = t.id where t.name = 'СЫР';
 select * from product where name like '%мороженное%';
-select * from product where expired_date < current_date + interval '1 month';
+select * from product where expired_date < date_trunc('month', current_date) + interval '2 month';
 select name, price from product where price = (select max(price) from product);
 select t.name, count(p.name) from product as p join type as t on p.type_id = t.id where t.name = 'СЫР' group by t.name;
 select t.name, product.name  from product join type t on product.type_id = t.id where t.name = 'СЫР' or t.name = 'МОЛОКО';
