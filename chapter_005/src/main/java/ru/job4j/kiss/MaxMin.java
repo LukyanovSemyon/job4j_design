@@ -5,23 +5,20 @@ import java.util.List;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        return sorter(value, comparator).get(0);
+        return sorter(value, comparator.reversed());
     }
 
     public <T> T min(List<T> value, Comparator<T> comparator) {
-        return sorter(value, comparator).get(value.size() - 1);
+        return sorter(value, comparator);
     }
 
-    public <T> List<T> sorter(List<T> value, Comparator<T> comparator) {
-        for (int j = 0; j < value.size() - 1; j++) {
-            for (int i = 0; i < value.size() - 1; i++) {
-                if (comparator.compare(value.get(i), value.get(i + 1)) > 0) {
-                    T t = value.get(i);
-                    value.set(i, value.get(i + 1));
-                    value.set(i + 1, t);
+    public <T> T sorter(List<T> value, Comparator<T> comparator) {
+        T u = value.get(0);
+        for (int i = 1; i < value.size(); i++) {
+            if (comparator.compare(value.get(i), u) > 0) {
+                u = value.get(i);
                 }
             }
-        }
-        return value;
+        return u;
     }
 }
