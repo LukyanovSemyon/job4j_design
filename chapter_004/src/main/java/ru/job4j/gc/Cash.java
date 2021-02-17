@@ -4,16 +4,16 @@ import java.lang.ref.SoftReference;
 import java.util.*;
 
 public class Cash {
-    Map<String, SoftReference<List<String>>> cash = new HashMap<>();
+    Map<String, SoftReference<String>> cash = new HashMap<>();
 
-    public SoftReference<List<String>> getCash(String name) {
+    public String getCash(String name) {
         if (cash.size() == 0 || cash.get(name) == null) {
-            return new SoftReference<>(new ArrayList<>());
+            return " ";
         }
-        return cash.get(name);
+        return cash.get(name).get();
     }
 
-    public void setCash(String name, SoftReference<List<String>> softReference) {
+    public void setCash(String name, SoftReference<String> softReference) {
         cash.put(name, softReference);
     }
 }
