@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/LukyanovSemyon/job4j_design.svg?branch=main)](https://travis-ci.org/LukyanovSemyon/job4j_design)
+[![codecov](https://codecov.io/gh/LukyanovSemyon/job4j_design/branch/main/graph/badge.svg?token=MGUU9ZO7KS)](undefined)
+
 ## Утилита zip
 
 ### Описание
@@ -29,6 +32,3 @@ java -jar find.jar -d C:\projects -n file_name (-m or -f) -o C:\projects\log.txt
 * Java NIO
 * Классы из пакета java.util.zip
 * Java Functional interfaces (java.util.function)
-
-[![Build Status](https://travis-ci.org/LukyanovSemyon/job4j_design.svg?branch=main)](https://travis-ci.org/LukyanovSemyon/job4j_design)
-[![codecov](https://codecov.io/gh/LukyanovSemyon/job4j_design/branch/main/graph/badge.svg?token=MGUU9ZO7KS)](undefined)
